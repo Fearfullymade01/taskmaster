@@ -13,7 +13,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-from .env import SECRET_KEY, DATABASE_URL
+
+# Try to import from env.py if it exists, otherwise use environment variables
+try:
+    from .env import SECRET_KEY, DATABASE_URL
+except ImportError:
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-#vg=)c#m_9e&4oav-kiqtco^)vnjqknefq^&_23r$^a$b*euc_')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
